@@ -14,7 +14,7 @@ In the fast-paced world of emerging technologies, particularly within the Africa
 This system tackles these challenges by integrating advanced AI capabilities with automation platforms, creating a seamless, semi-automated workflow for high-quality content delivery. It acts as an "AI Agent" overseeing content creation and dissemination.
 
 ## Key Features
-* **Automated Fresh News Sourcing:** Integrates with **Serper API** to fetch the latest (last 48 hours) developments, specifically focusing on **agentic AI** and relevant tech/African/Nigerian news sources.
+* **Automated Fresh News Sourcing:** Integrates with **NewsAPI.org** (or Serper API) to fetch the latest (last 48 hours) developments, specifically focusing on **agentic AI** and relevant tech/African/Nigerian news sources.
 * **Multi-Stage AI Content Generation:** Leverages multiple **Google Gemini 1.5 Pro LLM** instances for:
     * News summarization.
     * Headline selection (best of three generated options).
