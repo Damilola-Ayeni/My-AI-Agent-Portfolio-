@@ -60,7 +60,7 @@ graph TD
 
         S[Webhook Trigger (from Reject Link)] --> T{Data Store: Retrieve Record}
         T --> U[Google Docs: Create Document for Editing]
-        U --> V[Email: Editing Link & Publish Edited Link]
+        U --> V[Email: Editing Link & 'Publish Edited' Link]
 
         W[Webhook Trigger (from 'Publish Edited' Link)] --> X{Google Docs: Get Document Content}
         X --> Y{Data Store: Retrieve Record}
