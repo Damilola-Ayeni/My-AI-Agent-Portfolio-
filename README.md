@@ -36,45 +36,47 @@ The system is built as a hybrid automation pipeline, orchestrated across Zapier 
 
 ```mermaid
 graph TD
-    subgraph Zapier (Source Zap)
-        A[Schedule Trigger] --> B{Code: Web Search (NewsAPI.org)}
-        B --> C{LLM 1: News Summaries}
-        C --> D{LLM 2: Draft Post & JSON Output}
-        D --> E{Code: UUID Generation}
-        E --> F1[Formatter: Remove ```json]
-        F1 --> F2[Formatter: Remove ```]
-        F2 --> G{Code: JSON Parse & Text Clean}
-        G --> H{Code: Array Joiner}
-        H --> I{Google Vertex AI: Image Generation}
-        I --> J{Webhooks POST to Make.com Save Draft}
-        J --> K[Email: Review with Links (Approve/Reject)]
+    subgraph "Zapier Source Zap"
+        A[Schedule Trigger]
+        B{Code Web Search NewsAPIorg}
+        A --> B
+        B --> C{LLM 1 News Summaries}
+        C --> D{LLM 2 Draft Post JSON Output}
+        D --> E{Code UUID Generation}
+        E --> F1[Formatter Remove json codeblock]
+        F1 --> F2[Formatter Remove codeblock end]
+        F2 --> G{Code JSON Parse Text Clean}
+        G --> H{Code Array Joiner}
+        H --> I{Google Vertex AI Image Generation}
+        I --> J{Webhooks POST to Makecom Save Draft}
+        J --> K[Email Review Links ApproveReject]
     end
 
-    subgraph Make.com (Backend & Response)
-        L[Webhook Trigger (from Zapier)] --> M{Data Store: Add/Update Record}
-        M --> N[Webhook Response: Send back Unique ID]
+    subgraph "Makecom Backend Response"
+        L[Webhook Trigger from Zapier] --> M{Data Store AddUpdate Record}
+        M --> N[Webhook Response Send back Unique ID]
 
-        O[Webhook Trigger (from Approve Link)] --> P{Data Store: Retrieve Record}
-        P --> Q[HTTP: Get Image File]
-        Q --> R[LinkedIn: Create User Image Post]
+        O[Webhook Trigger from Approve Link] --> P{Data Store Retrieve Record}
+        P --> Q[HTTP Get Image File]
+        Q --> R[LinkedIn Create User Image Post]
 
-        S[Webhook Trigger (from Reject Link)] --> T{Data Store: Retrieve Record}
-        T --> U[Google Docs: Create Document for Editing]
-        U --> V[Email: Editing Link & 'Publish Edited' Link]
+        S[Webhook Trigger from Reject Link] --> T{Data Store Retrieve Record}
+        T --> U[Google Docs Create Document for Editing]
+        U --> V[Email Editing Link Publish Edited Link]
 
-        W[Webhook Trigger (from 'Publish Edited' Link)] --> X{Google Docs: Get Document Content}
-        X --> Y{Data Store: Retrieve Record}
-        Y --> Z{HTTP: Get Image File}
-        Z --> AA[LinkedIn: Create User Image Post]
+        W[Webhook Trigger from Publish Edited Link] --> X{Google Docs Get Document Content}
+        X --> Y{Data Store Retrieve Record}
+        Y --> Z{HTTP Get Image File}
+        Z --> AA[LinkedIn Create User Image Post]
     end
 
     K --> O
     K --> S
     V --> W
-    N -- Unique ID --> J
-    L -- Text + Image URL + ID --> M
-    M -- Unique ID --> N
-    P -- Text + Image URL --> Q
-    T -- Text + Image URL --> U
-    X -- Edited Text --> AA
-    Y -- Image URL --> Z
+    N -- "Unique ID" --> J
+    L -- "Text Image URL ID" --> M
+    M -- "Unique ID" --> N
+    P -- "Text Image URL" --> Q
+    T -- "Text Image URL" --> U
+    X -- "Edited Text" --> AA
+    Y -- "Image URL" --> Z
