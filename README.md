@@ -34,7 +34,6 @@ This system tackles these challenges by integrating advanced AI capabilities wit
 ## Architecture Overview
 The system is built as a hybrid automation pipeline, orchestrated across Zapier and Make.com to leverage each platform's strengths and overcome individual platform limitations.
 
-```mermaid
 graph TD
     subgraph Zapier (Source Zap)
         A[Schedule Trigger] --> B{Code: Web Search (NewsAPI.org)}
@@ -60,7 +59,7 @@ graph TD
 
         S[Webhook Trigger (from Reject Link)] --> T{Data Store: Retrieve Record}
         T --> U[Google Docs: Create Document for Editing]
-        U --> V[Email: Editing Link & Publish Edited Link]
+        U --> V[Email: Editing Link & 'Publish Edited' Link]
 
         W[Webhook Trigger (from 'Publish Edited' Link)] --> X{Google Docs: Get Document Content}
         X --> Y{Data Store: Retrieve Record}
